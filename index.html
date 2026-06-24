@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma de Reclutamiento & Onboarding Inteligente - Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-section">
+          <div class="brand-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+          </div>
+          <div class="brand-name">
+            <h2>MopRh</h2>
+            <p>Automatización</p>
+          </div>
+        </div>
+        
+        <ul class="nav-links">
+          <li>
+            <a class="nav-item active" data-tab="overview">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+              <span>Resumen General</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="bot-sim">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              <span>Bot WhatsApp (Aspirante)</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="onboarding-sim">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+              <span>Portal de Inducción</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="recruiter-dashboard">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span>Panel de Control (RH)</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="proposals">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <span>Propuestas y Costos</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="user-avatar">RH</div>
+          <div class="user-info">
+            <h4>Esther Flores</h4>
+            <p>Admin de Talento</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="main-header">
+        <div class="header-title">
+          <h1 id="dynamic-title">Resumen del Proyecto</h1>
+          <p id="dynamic-subtitle">Monitoreo de automatización de vacantes de limpieza y onboarding.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-secondary" onclick="resetSimulations()">Reiniciar Simulador</button>
+          <button class="btn btn-primary" id="simulation-trigger" onclick="simulateIncomingCandidate()">Simular Candidato Nuevo</button>
+        </div>
+      </header>
+
+      <!-- View: Overview Dashboard -->
+      <section id="overview" class="view-section active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+              </div>
+              <span class="tag tag-status">Activos</span>
+            </div>
+            <div class="stat-number" id="stat-active-candidates">12</div>
+            <div class="stat-label">Candidatos en Proceso</div>
+          </div>
+          <div class="stat-card secondary">
+            <div class="stat-header">
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              </div>
+              <span class="tag tag-status" style="background:rgba(99, 102, 241, 0.1); color:var(--secondary)">Completado</span>
+            </div>
+            <div class="stat-number">94%</div>
+            <div class="stat-label">Tasa de Onboarding</div>
+          </div>
+          <div class="stat-card success">
+            <div class="stat-header">
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <span class="tag tag-status" style="background:rgba(16, 185, 129, 0.1); color:var(--success)">Eficiencia</span>
+            </div>
+            <div class="stat-number">2.5 min</div>
+            <div class="stat-label">Tiempo de Respuesta Bot</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              </div>
+              <span class="tag tag-status">Servicios</span>
+            </div>
+            <div class="stat-number">3</div>
+            <div class="stat-label">Módulos Especializados</div>
+          </div>
+        </div>
+
+        <div class="features-container">
+          <div class="card">
+            <h3 class="card-title">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Beneficios de la Automatización propuesta
+            </h3>
+            <div class="benefits-list">
+              <div class="benefit-item">
+                <div class="benefit-check">✓</div>
+                <div class="benefit-text">
+                  <h4>Filtro de Reclutamiento 24/7 sin esfuerzo</h4>
+                  <p>El bot responde de inmediato en WhatsApp pidiendo zona, horarios y validando documentos básicos, descartando perfiles no aptos y poblando la cartera.</p>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-check">✓</div>
+                <div class="benefit-text">
+                  <h4>Onboarding Autogestionado vía Móvil</h4>
+                  <p>Evita capacitaciones presenciales repetitivas. Los afanadores nuevos reciben una liga de WhatsApp y ven videos cortos explicativos antes de presentarse.</p>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-check">✓</div>
+                <div class="benefit-text">
+                  <h4>Control de Rotación y Cartera de Candidatos</h4>
+                  <p>Mapea candidatos aprobados para cuando ocurran bajas en servicios como DIF, Elektra u Hospitales, reduciendo el tiempo de cobertura a horas.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
+            <div class="mascot-teaser">
+              <div class="mascot-image-wrapper">
+                <img id="mascot-avatar-view" src="assets/mop_mascot.png" class="mascot-img-small" alt="Mascot Mop" onError="this.src='https://placehold.co/100?text=Trapeador'">
+              </div>
+              <div class="mascot-bubble">
+                "¡Hola! Soy tu asistente de onboarding. Ayudaré a los nuevos afanadores a entender las reglas del servicio fácilmente en su cel."
+              </div>
+              <div style="text-align: center;">
+                <h4 style="font-weight:700;">"El Trapeador Animado"</h4>
+                <p style="font-size:0.8rem; color:var(--text-secondary);">Mascota oficial y guía interactivo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View: WhatsApp Bot Simulator -->
+      <section id="bot-sim" class="view-section">
+        <div class="simulator-layout">
+          <!-- Simulator Frame -->
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <!-- WhatsApp Header -->
+              <div class="wa-header">
+                <div class="wa-back-btn">←</div>
+                <div class="wa-avatar">
+                  <img src="assets/mop_mascot.png" alt="Mascot Mop" onError="this.src='https://placehold.co/38?text=🤖'">
+                </div>
+                <div class="wa-status-info">
+                  <h4>Bolsa de Trabajo MopRh</h4>
+                  <p>En línea • Bot Asistente</p>
+                </div>
+              </div>
+              <!-- WhatsApp Chat Body -->
+              <div class="wa-chat-body" id="wa-chat-container">
+                <!-- Messages will be appended here dynamically by JS -->
+                
+                <div class="wa-typing-indicator" id="wa-typing">
+                  <div class="wa-typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+              <!-- WhatsApp Input Bar -->
+              <div class="wa-input-bar">
+                <input type="text" class="wa-input-field" id="wa-input" placeholder="Escribe un mensaje..." onkeypress="handleWaInputKey(event)">
+                <button class="wa-send-btn" onclick="sendWaUserMessage()">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Information details -->
+          <div class="simulator-info-box">
+            <div class="card">
+              <h3 class="card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Simulador del Chatbot de Reclutamiento
+              </h3>
+              <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.5; margin-bottom:1rem;">
+                Interactúa con el teléfono de la izquierda para vivir la experiencia del aspirante a afanador. El bot recopila de forma autónoma:
+              </p>
+              <ul style="color:var(--text-secondary); font-size:0.9rem; margin-left:1.5rem; display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.5rem;">
+                <li><strong>Identidad:</strong> Nombre completo del candidato.</li>
+                <li><strong>Filtro de Zona:</strong> Preferencia de trabajo (Centro, Norte, Sur).</li>
+                <li><strong>Horario:</strong> Disponibilidad (Matutino, Vespertino, Nocturno).</li>
+                <li><strong>Documentos:</strong> INE y Comprobante de Domicilio (Simulados).</li>
+              </ul>
+              
+              <div style="background:var(--bg-darker); border:1px solid var(--glass-border); padding:1rem; border-radius:var(--radius-md);">
+                <h4 style="font-size:0.875rem; font-weight:700; margin-bottom:0.5rem; color:var(--primary);">Instrucciones de simulación:</h4>
+                <p style="font-size:0.825rem; color:var(--text-secondary); line-height:1.4;">
+                  Puedes presionar los botones rápidos dentro de la conversación del chat o escribir tus respuestas en la barra de texto inferior del teléfono.
+                </p>
+              </div>
+
+              <div style="margin-top: auto; display: flex; gap: 1rem;">
+                <button class="btn btn-primary" onclick="restartChatbotFlow()">Reiniciar Chatbot</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View: Employee Onboarding Portal -->
+      <section id="onboarding-sim" class="view-section">
+        <div class="simulator-layout">
+          <!-- Onboarding Mobile Simulator -->
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <!-- Onboarding Portal Header -->
+              <div class="ob-header">
+                <div class="ob-logo">MopRh Onboarding</div>
+                <div class="ob-user-pill">
+                  <div class="ob-user-dot"></div>
+                  <span>María G. (Hospital)</span>
+                </div>
+              </div>
+              
+              <!-- Onboarding Portal Body -->
+              <div class="ob-body">
+                <div class="ob-welcome-banner">
+                  <img src="assets/mop_mascot.png" class="ob-mascot-helper" alt="Mascot Helper" onError="this.src='https://placehold.co/75?text=🧹'">
+                  <h3>¡Bienvenida!</h3>
+                  <p>Comencemos tu inducción digital en MopRh.</p>
+                </div>
+                
+                <div class="ob-progress-section">
+                  <div class="ob-progress-header">
+                    <span>Progreso de inducción</span>
+                    <span id="ob-progress-percent">0%</span>
+                  </div>
+                  <div class="ob-progress-bar">
+                    <div class="ob-progress-fill" id="ob-progress-fill" style="width: 0%"></div>
+                  </div>
+                </div>
+
+                <div class="ob-section-title">Videos de Inducción</div>
+                
+                <div class="ob-video-list">
+                  <!-- Video 1 -->
+                  <div class="ob-video-card" onclick="openVideoModal('culture')">
+                    <div class="ob-video-thumbnail culture">
+                      <div class="ob-play-icon">▶</div>
+                    </div>
+                    <div class="ob-video-info">
+                      <h4>
+                        <span>1. Bienvenido a MopRh</span>
+                        <span class="ob-badge pending" id="badge-culture">Pendiente</span>
+                      </h4>
+                      <p>Valores, asistencia y reglas generales. • 2:15 min</p>
+                    </div>
+                  </div>
+
+                  <!-- Video 2 -->
+                  <div class="ob-video-card" onclick="openVideoModal('hospital')">
+                    <div class="ob-video-thumbnail hospital">
+                      <div class="ob-play-icon">▶</div>
+                    </div>
+                    <div class="ob-video-info">
+                      <h4>
+                        <span>2. Seguridad en Hospitales</span>
+                        <span class="ob-badge pending" id="badge-hospital">Pendiente</span>
+                      </h4>
+                      <p>Manejo de residuos y protección personal. • 3:45 min</p>
+                    </div>
+                  </div>
+
+                  <!-- Video 3 -->
+                  <div class="ob-video-card" onclick="openVideoModal('elektra')">
+                    <div class="ob-video-thumbnail elektra">
+                      <div class="ob-play-icon">▶</div>
+                    </div>
+                    <div class="ob-video-info">
+                      <h4>
+                        <span>3. Limpieza de Tiendas y DIF</span>
+                        <span class="ob-badge pending" id="badge-elektra">Pendiente</span>
+                      </h4>
+                      <p>Atención al cliente y áreas comunes. • 2:30 min</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Onboarding details -->
+          <div class="simulator-info-box">
+            <div class="card">
+              <h3 class="card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                Portal de Inducción Móvil
+              </h3>
+              <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.5; margin-bottom:1rem;">
+                Una vez contratado, el afanador recibe un enlace de WhatsApp directo a este portal web responsive. Está optimizado para teléfonos económicos y no requiere descargar apps.
+              </p>
+              <ul style="color:var(--text-secondary); font-size:0.9rem; margin-left:1.5rem; display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.5rem;">
+                <li><strong>Videos Cortos:</strong> Información clave explicada de manera dinámica e interactiva.</li>
+                <li><strong>Monitoreo de Avance:</strong> Muestra el porcentaje de videos vistos y notifica al área de RH cuando el trabajador completa su inducción.</li>
+                <li><strong>Avatar de Compañía:</strong> El personaje animado "Trapeador" guía al trabajador paso a paso.</li>
+              </ul>
+              
+              <div style="background:var(--bg-darker); border:1px solid var(--glass-border); padding:1rem; border-radius:var(--radius-md);">
+                <h4 style="font-size:0.875rem; font-weight:700; margin-bottom:0.5rem; color:var(--primary);">Pruébalo ahora:</h4>
+                <p style="font-size:0.825rem; color:var(--text-secondary); line-height:1.4;">
+                  Haz clic en cualquiera de los videos en la pantalla del teléfono móvil. Esto abrirá un reproductor de video simulado donde podrás avanzar el material y ver cómo se actualiza el progreso en tiempo real.
+                </p>
+              </div>
+
+              <div style="margin-top: auto;">
+                <button class="btn btn-secondary" onclick="resetOnboardingProgress()">Reiniciar Progreso de Inducción</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View: Recruiter Dashboard -->
+      <section id="recruiter-dashboard" class="view-section">
+        <div class="recruiter-container">
+          <div class="recruiter-toolbar">
+            <div class="search-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="candidate-search" placeholder="Buscar candidatos por nombre o zona..." oninput="filterCandidates()">
+            </div>
+            
+            <div style="display:flex; gap:1rem;">
+              <select id="zone-filter" class="campaign-select" style="padding:0.5rem 1.5rem; background:var(--bg-darker);" onchange="filterCandidates()">
+                <option value="all">Todas las Zonas</option>
+                <option value="Centro">Zona Centro</option>
+                <option value="Norte">Zona Norte</option>
+                <option value="Sur">Zona Sur</option>
+              </select>
+              
+              <select id="status-filter" class="campaign-select" style="padding:0.5rem 1.5rem; background:var(--bg-darker);" onchange="filterCandidates()">
+                <option value="all">Todos los Estatus</option>
+                <option value="En Onboarding">En Onboarding</option>
+                <option value="Filtro Pendiente">Filtro Pendiente</option>
+                <option value="Inducción Completada">Inducción Completada</option>
+                <option value="Descartado">Descartado</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="recruiter-grid-layout">
+            <!-- Candidates Table Card -->
+            <div class="candidate-table-card">
+              <div class="table-header">
+                <div class="table-title">Cartera de Aspirantes</div>
+                <div class="tag tag-status" id="table-count">5 Candidatos</div>
+              </div>
+              <div style="overflow-x: auto;">
+                <table class="candidate-table">
+                  <thead>
+                    <tr>
+                      <th>Candidato</th>
+                      <th>Zona y Turno</th>
+                      <th>Estatus</th>
+                      <th>Docs</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="candidate-table-body">
+                    <!-- Dynamic Rows populated by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Campaign Manager / Automation control -->
+            <div class="campaign-card">
+              <h3 class="card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect><path d="M12 18H3"></path><path d="M16 12H3"></path><path d="M21 6H3"></path></svg>
+                Envío Masivo de Vacantes
+              </h3>
+              <p style="font-size:0.8rem; color:var(--text-secondary); line-height:1.4;">
+                Selecciona una plantilla para enviar a la cartera filtrada de aspirantes de forma masiva por WhatsApp.
+              </p>
+              
+              <div class="campaign-form-group">
+                <label for="template-select">Selecciona Plantilla</label>
+                <select id="template-select" class="campaign-select" onchange="updateTemplatePreview()">
+                  <option value="vacante_urgente">Vacante Urgente (Hospitales)</option>
+                  <option value="bienvenida_onboarding">Invitación a Onboarding</option>
+                  <option value="recordatorio_documentos">Recordatorio de Documentos Faltantes</option>
+                </select>
+              </div>
+
+              <div class="campaign-form-group">
+                <label for="template-preview">Vista Previa de Mensaje (Customizado)</label>
+                <textarea id="template-preview" class="campaign-textarea" readonly></textarea>
+              </div>
+
+              <button class="btn btn-primary" style="width:100%;" onclick="sendMassCampaign()">
+                Enviar Mensajes Masivos
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View: Proposals & Costs -->
+      <section id="proposals" class="view-section">
+        <div class="proposals-layout">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <h2 style="font-size:1.5rem; font-weight:800;">Propuestas Comerciales Diseñadas</h2>
+              <p style="color:var(--text-secondary); font-size:0.9rem;">Propuestas detalladas para el proyecto de Onboarding & WhatsApp</p>
+            </div>
+            <button class="btn btn-secondary" onclick="window.print()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              Imprimir Propuesta
+            </button>
+          </div>
+
+          <div class="proposals-grid">
+            <!-- Proposal 1 -->
+            <div class="proposal-card featured">
+              <span class="proposal-badge">Fase Inicial</span>
+              <h3 class="proposal-title">Propuesta 1: Automatización y Videos IA</h3>
+              <p class="proposal-subtitle">Diseño del ecosistema inicial de reclutamiento, producción de videos explicativos con avatar animado y capacitación de personal de RH.</p>
+              
+              <div class="proposal-price-box">
+                <span class="price-currency">$</span>
+                <span class="price-amount">1,200</span>
+                <span class="price-currency">USD</span>
+                <span class="price-period">/ pago único</span>
+              </div>
+              
+              <ul class="proposal-features-list">
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon">✓</span>
+                  <span><strong>Bot de Reclutamiento:</strong> Chatbot interactivo en WhatsApp para filtrado automático (Zona, Horarios, Docs básicos).</span>
+                </li>
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon">✓</span>
+                  <span><strong>Portal de Onboarding Móvil:</strong> Micrositio web responsive para que candidatos aprobados vean sus videos de capacitación.</span>
+                </li>
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon">✓</span>
+                  <span><strong>3 Videos con IA:</strong> Videos cortos explicativos y dinámicos creados con avatar del personaje ("Trapeador Animado") para inducción general, hospitales y DIF/Elektra.</span>
+                </li>
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon">✓</span>
+                  <span><strong>Capacitación Completa:</strong> Sesiones de capacitación al equipo de RH para gestionar la cartera y plantillas.</span>
+                </li>
+              </ul>
+              
+              <div class="proposal-footer">
+                <button class="btn btn-primary" style="width: 100%;" onclick="alert('Propuesta 1 Seleccionada para revisión. ¡Listo para exportar!')">Aceptar e Iniciar Setup</button>
+              </div>
+            </div>
+
+            <!-- Proposal 2 -->
+            <div class="proposal-card">
+              <span class="proposal-badge">Soporte Continuo</span>
+              <h3 class="proposal-title">Propuesta 2: Soporte y Mantenimiento</h3>
+              <p class="proposal-subtitle">Aseguramiento del canal de WhatsApp 24/7, cambios rápidos de plantillas de reclutamiento y actualizaciones de videos de acuerdo a rotación.</p>
+              
+              <div class="proposal-price-box">
+                <span class="price-currency">$</span>
+                <span class="price-amount">150</span>
+                <span class="price-currency">USD</span>
+                <span class="price-period">/ mes</span>
+              </div>
+              
+              <ul class="proposal-features-list">
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon">✓</span>
+                  <span><strong>Soporte Técnico 24/7:</strong> Monitoreo activo de conexiones API de WhatsApp y base de datos de candidatos.</span>
+                </li>
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon">✓</span>
+                  <span><strong>Ajustes del Bot:</strong> Hasta 3 modificaciones al mes de filtros por zona, horarios de reclutamiento o requisitos de documentos.</span>
+                </li>
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon">✓</span>
+                  <span><strong>Actualización de Contenidos:</strong> Ediciones sencillas a los videos de inducción (actualización de logotipos, números de contacto, etc.).</span>
+                </li>
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon">✓</span>
+                  <span><strong>Hosting Incluido:</strong> Mantenimiento de la base de datos de aspirantes y almacenamiento de videos.</span>
+                </li>
+              </ul>
+              
+              <div class="proposal-footer">
+                <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Propuesta 2 Seleccionada para revisión. ¡Listo para exportar!')">Contratar Mantenimiento</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recommended Tech Stack Section -->
+          <div class="tech-stack-card">
+            <h3 style="font-weight:700; font-size:1.25rem;">Arquitectura y Costos Operativos Sugeridos</h3>
+            <p style="color:var(--text-secondary); font-size:0.875rem; margin-top:0.25rem;">Configuración de herramientas recomendadas para mantener costos muy bajos y fácil mantenimiento:</p>
+            
+            <div class="tech-grid">
+              <div class="tech-item">
+                <div class="tech-item-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                  Twilio WhatsApp API
+                </div>
+                <div class="tech-item-desc">API líder mundial. Costo aproximado de $0.005 USD por sesión de 24 hrs. Es ideal para pagar solo por lo que se usa sin mensualidades fijas obligatorias de otras plataformas.</div>
+              </div>
+              <div class="tech-item">
+                <div class="tech-item-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                  Google Firebase
+                </div>
+                <div class="tech-item-desc">Base de datos en tiempo real y almacenamiento del portal de inducción. Capa gratuita muy amplia que cubre hasta 10,000 visitas al mes. Costo mensual inicial: $0.</div>
+              </div>
+              <div class="tech-item">
+                <div class="tech-item-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                  HeyGen / Synthesia (IA)
+                </div>
+                <div class="tech-item-desc">Herramientas de IA para animar la mascota ("Trapeador Animado") o crear un avatar que explique los textos de capacitación. Ahorra semanas de grabación y edición de video.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Video Modal Overlay -->
+  <div class="modal-overlay" id="video-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="video-modal-title">Reproduciendo Video de Inducción</div>
+        <button class="modal-close" onclick="closeVideoModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="video-player-sim">
+          <div class="video-watermark">
+            <img src="assets/mop_mascot.png" alt="Mop Logo" onError="this.src='https://placehold.co/20?text=🧹'">
+            <span>MopRh Inducción</span>
+          </div>
+          <div class="video-player-content">
+            <img src="assets/mop_mascot.png" class="video-mascot-helper" id="video-mascot-helper" alt="Mop Mascot" onError="this.src='https://placehold.co/90?text=🧹'">
+            <h3 id="video-sim-title">Capítulo 1: Bienvenido a MopRh</h3>
+            <p id="video-sim-desc">Entendiendo tus derechos y deberes.</p>
+            <button class="btn btn-primary" id="video-action-btn" onclick="startSimulatedPlayback()" style="margin-top: 0.5rem;">
+              Comenzar a Ver (Simulación de 5s)
+            </button>
+          </div>
+          <div class="video-time-overlay" id="video-timer">0:00 / 2:15</div>
+          <div class="video-progress-container">
+            <div class="video-progress-bar" id="video-progress-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Message -->
+  <div class="toast" id="toast">
+    <span class="toast-icon">✓</span>
+    <span class="toast-text" id="toast-text">Acción completada con éxito</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
