@@ -445,89 +445,142 @@
       <!-- View: Proposals & Costs -->
       <section id="proposals" class="view-section">
         <div class="proposals-layout">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="proposals-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;">
             <div>
               <h2 style="font-size:1.5rem; font-weight:800;">Propuestas Comerciales Diseñadas</h2>
               <p style="color:var(--text-secondary); font-size:0.9rem;">Propuestas detalladas para el proyecto de Onboarding & WhatsApp</p>
             </div>
-            <button class="btn btn-secondary" onclick="window.print()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-              Imprimir Propuesta
-            </button>
+            <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+              <!-- Currency Selector -->
+              <div class="currency-selector" style="display:flex; align-items:center; gap:0.5rem; background:rgba(255,255,255,0.05); padding:0.4rem 0.8rem; border-radius:var(--radius-md); border:1px solid var(--glass-border);">
+                <span style="font-size:0.8rem; color:var(--text-secondary); font-weight:600;">Moneda:</span>
+                <div style="display:flex; gap:0.25rem; background:rgba(0,0,0,0.25); padding:2px; border-radius:4px;">
+                  <button id="curr-usd" class="curr-btn active" onclick="changeCurrency('USD')" style="background:var(--primary); color:#fff; border:none; padding:0.2rem 0.6rem; font-size:0.75rem; font-weight:bold; border-radius:3px; cursor:pointer; transition:all 0.2s;">USD</button>
+                  <button id="curr-mxn" class="curr-btn" onclick="changeCurrency('MXN')" style="background:transparent; color:var(--text-muted); border:none; padding:0.2rem 0.6rem; font-size:0.75rem; font-weight:bold; border-radius:3px; cursor:pointer; transition:all 0.2s;">MXN</button>
+                </div>
+                <div id="exchange-rate-container" style="display:none; align-items:center; gap:0.35rem; margin-left:0.5rem; border-left:1px solid rgba(255,255,255,0.1); padding-left:0.5rem;">
+                  <span style="font-size:0.75rem; color:var(--text-muted);">T.C.:</span>
+                  <input type="number" id="ex-rate-input" value="18.00" step="0.1" min="1" max="100" oninput="updatePrices()" style="width:55px; background:rgba(0,0,0,0.3); border:1px solid var(--glass-border); border-radius:3px; color:#fff; font-size:0.75rem; font-weight:bold; text-align:center; padding:1px 3px;">
+                  <span style="font-size:0.75rem; color:var(--text-muted);">MXN</span>
+                </div>
+              </div>
+              
+              <button class="btn btn-secondary" onclick="window.print()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                Imprimir Propuesta
+              </button>
+            </div>
           </div>
 
           <div class="proposals-grid">
             <!-- Proposal 1 -->
             <div class="proposal-card featured">
-              <span class="proposal-badge">Fase Inicial</span>
-              <h3 class="proposal-title">Propuesta 1: Automatización y Videos IA</h3>
-              <p class="proposal-subtitle">Diseño del ecosistema inicial de reclutamiento, producción de videos explicativos con avatar animado y capacitación de personal de RH.</p>
+              <span class="proposal-badge">Desarrollo Completo</span>
+              <h3 class="proposal-title">Desarrollo del Sistema (Freelance)</h3>
+              <p class="proposal-subtitle">Servicios profesionales de desarrollo de software para construir la plataforma de reclutamiento, bot de WhatsApp y panel de administración.</p>
               
               <div class="proposal-price-box">
-                <span class="price-currency">$</span>
-                <span class="price-amount">1,200</span>
-                <span class="price-currency">USD</span>
+                <span class="price-symbol" id="p1-symbol">$</span>
+                <span class="price-amount" id="p1-val">2,500</span>
+                <span class="price-currency" id="p1-curr">USD</span>
                 <span class="price-period">/ pago único</span>
               </div>
               
               <ul class="proposal-features-list">
                 <li class="proposal-feature-item">
                   <span class="proposal-feature-icon">✓</span>
-                  <span><strong>Bot de Reclutamiento:</strong> Chatbot interactivo en WhatsApp para filtrado automático (Zona, Horarios, Docs básicos).</span>
+                  <span><strong>Desarrollo Frontend:</strong> Creación del Portal de Inducción Móvil y Panel de Administración responsivo.</span>
                 </li>
                 <li class="proposal-feature-item">
                   <span class="proposal-feature-icon">✓</span>
-                  <span><strong>Portal de Onboarding Móvil:</strong> Micrositio web responsive para que candidatos aprobados vean sus videos de capacitación.</span>
+                  <span><strong>Desarrollo Backend:</strong> Implementación de la lógica del servidor, base de datos en Firebase y gestión de estados.</span>
                 </li>
                 <li class="proposal-feature-item">
                   <span class="proposal-feature-icon">✓</span>
-                  <span><strong>3 Videos con IA:</strong> Videos cortos explicativos y dinámicos creados con avatar del personaje ("Trapeador Animado") para inducción general, hospitales y DIF/Elektra.</span>
+                  <span><strong>Integración API:</strong> Conexión experta con Twilio WhatsApp API y flujos de conversación conversacional.</span>
                 </li>
                 <li class="proposal-feature-item">
                   <span class="proposal-feature-icon">✓</span>
-                  <span><strong>Capacitación Completa:</strong> Sesiones de capacitación al equipo de RH para gestionar la cartera y plantillas.</span>
+                  <span><strong>Entregables:</strong> Código fuente completo, despliegue inicial en producción y documentación técnica del proyecto.</span>
                 </li>
               </ul>
               
               <div class="proposal-footer">
-                <button class="btn btn-primary" style="width: 100%;" onclick="alert('Propuesta 1 Seleccionada para revisión. ¡Listo para exportar!')">Aceptar e Iniciar Setup</button>
+                <button class="btn btn-primary" style="width: 100%;" onclick="alert('Cotización de Desarrollo Seleccionada. ¡Listo para exportar!')">Aceptar Cotización</button>
               </div>
             </div>
 
             <!-- Proposal 2 -->
             <div class="proposal-card">
-              <span class="proposal-badge">Soporte Continuo</span>
-              <h3 class="proposal-title">Propuesta 2: Soporte y Mantenimiento</h3>
-              <p class="proposal-subtitle">Aseguramiento del canal de WhatsApp 24/7, cambios rápidos de plantillas de reclutamiento y actualizaciones de videos de acuerdo a rotación.</p>
+              <span class="proposal-badge">Retainer Mensual</span>
+              <h3 class="proposal-title">Mantenimiento y Soporte Técnico</h3>
+              <p class="proposal-subtitle">Horas mensuales asignadas para el mantenimiento de la plataforma, optimización de código y soporte técnico general.</p>
               
               <div class="proposal-price-box">
-                <span class="price-currency">$</span>
-                <span class="price-amount">150</span>
-                <span class="price-currency">USD</span>
+                <span class="price-symbol" id="p2-symbol">$</span>
+                <span class="price-amount" id="p2-val">300</span>
+                <span class="price-currency" id="p2-curr">USD</span>
                 <span class="price-period">/ mes</span>
               </div>
               
               <ul class="proposal-features-list">
                 <li class="proposal-feature-item">
                   <span class="proposal-feature-icon">✓</span>
-                  <span><strong>Soporte Técnico 24/7:</strong> Monitoreo activo de conexiones API de WhatsApp y base de datos de candidatos.</span>
+                  <span><strong>Resolución de Incidencias:</strong> Monitoreo constante, diagnóstico y corrección de bugs en el bot y en el panel.</span>
                 </li>
                 <li class="proposal-feature-item">
                   <span class="proposal-feature-icon">✓</span>
-                  <span><strong>Ajustes del Bot:</strong> Hasta 3 modificaciones al mes de filtros por zona, horarios de reclutamiento o requisitos de documentos.</span>
+                  <span><strong>Actualizaciones Menores:</strong> Ajustes en flujos de conversación de WhatsApp y mejoras menores de UI según se requiera.</span>
                 </li>
                 <li class="proposal-feature-item">
                   <span class="proposal-feature-icon">✓</span>
-                  <span><strong>Actualización de Contenidos:</strong> Ediciones sencillas a los videos de inducción (actualización de logotipos, números de contacto, etc.).</span>
+                  <span><strong>Gestión de Infraestructura:</strong> Mantenimiento de la base de datos Firebase y supervisión del rendimiento de la API.</span>
                 </li>
                 <li class="proposal-feature-item">
                   <span class="proposal-feature-icon">✓</span>
-                  <span><strong>Hosting Incluido:</strong> Mantenimiento de la base de datos de aspirantes y almacenamiento de videos.</span>
+                  <span><strong>Reportes Técnicos:</strong> Informe técnico mensual detallando la estabilidad y optimizaciones del sistema.</span>
                 </li>
               </ul>
               
               <div class="proposal-footer">
-                <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Propuesta 2 Seleccionada para revisión. ¡Listo para exportar!')">Contratar Mantenimiento</button>
+                <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Propuesta de Mantenimiento Seleccionada. ¡Listo para exportar!')">Contratar Mantenimiento</button>
+              </div>
+            </div>
+
+            <!-- Proposal 3 -->
+            <div class="proposal-card" style="border-color: var(--success); box-shadow: 0 15px 35px -5px rgba(46, 204, 113, 0.2);">
+              <span class="proposal-badge" style="color: var(--success);">Paquete Premium</span>
+              <h3 class="proposal-title">Solución Integral Enterprise</h3>
+              <p class="proposal-subtitle">La opción de mayor valor. Incluye el desarrollo completo, características avanzadas y 1 año de mantenimiento cubierto por adelantado.</p>
+              
+              <div class="proposal-price-box" style="border-color: rgba(46, 204, 113, 0.3);">
+                <span class="price-symbol" id="p3-symbol" style="color: var(--success);">$</span>
+                <span class="price-amount" id="p3-val" style="color: var(--success);">6,500</span>
+                <span class="price-currency" id="p3-curr">USD</span>
+                <span class="price-period">/ pago único</span>
+              </div>
+              
+              <ul class="proposal-features-list">
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon" style="color: var(--success);">✓</span>
+                  <span><strong>Todo el Desarrollo Base:</strong> Portal, Backend e Integración API.</span>
+                </li>
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon" style="color: var(--success);">✓</span>
+                  <span><strong>12 Meses de Soporte Incluido:</strong> Mantenimiento y actualizaciones sin costo extra mensual por 1 año.</span>
+                </li>
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon" style="color: var(--success);">✓</span>
+                  <span><strong>IA Generativa Avanzada:</strong> El bot usará un motor de IA real (LLM) para responder dudas complejas en tiempo real.</span>
+                </li>
+                <li class="proposal-feature-item">
+                  <span class="proposal-feature-icon" style="color: var(--success);">✓</span>
+                  <span><strong>Dashboard BI Directivo:</strong> Panel de métricas avanzadas (Business Intelligence) para medir tiempos y eficiencia.</span>
+                </li>
+              </ul>
+              
+              <div class="proposal-footer">
+                <button class="btn btn-primary" style="background: var(--success); color: #fff; width: 100%; border: none;" onclick="alert('Propuesta Enterprise Seleccionada. ¡Excelente elección!')">Adquirir Paquete Enterprise</button>
               </div>
             </div>
           </div>
@@ -543,7 +596,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                   Twilio WhatsApp API
                 </div>
-                <div class="tech-item-desc">API líder mundial. Costo aproximado de $0.005 USD por sesión de 24 hrs. Es ideal para pagar solo por lo que se usa sin mensualidades fijas obligatorias de otras plataformas.</div>
+                <div class="tech-item-desc">API líder mundial. Costo aproximado de <span id="twilio-val" style="font-weight: 700; color: #fff;">$0.005 USD</span> por sesión de 24 hrs. Es ideal para pagar solo por lo que se usa sin mensualidades fijas obligatorias de otras plataformas.</div>
               </div>
               <div class="tech-item">
                 <div class="tech-item-title">
@@ -602,6 +655,6 @@
     <span class="toast-text" id="toast-text">Acción completada con éxito</span>
   </div>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>

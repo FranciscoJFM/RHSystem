@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateStats();
   restartChatbotFlow();
   updateTemplatePreview();
+  setupCurrencySelector();
 });
 
 // Navigation logic
@@ -625,4 +626,88 @@ function resetSimulations() {
   updateStats();
   
   showToast("Todos los simuladores y datos han sido reiniciados.");
+  
+  // Reset currency to USD
+  if (typeof changeCurrency === "function") {
+    changeCurrency("USD");
+  }
+}
+
+// Currency Switcher and Pricing Conversion Logic
+let currentCurrency = "USD";
+
+function setupCurrencySelector() {
+  // Expose functions globally for HTML onclick attributes
+  window.changeCurrency = changeCurrency;
+  window.updatePrices = updatePrices;
+}
+
+function changeCurrency(currency) {
+  currentCurrency = currency;
+  
+  const btnUsd = document.getElementById("curr-usd");
+  const btnMxn = document.getElementById("curr-mxn");
+  const rateContainer = document.getElementById("exchange-rate-container");
+  
+  if (!btnUsd || !btnMxn || !rateContainer) return;
+  
+  if (currency === "USD") {
+    btnUsd.classList.add("active");
+    btnUsd.style.background = "var(--primary)";
+    btnUsd.style.color = "#fff";
+    
+    btnMxn.classList.remove("active");
+    btnMxn.style.background = "transparent";
+    btnMxn.style.color = "var(--text-muted)";
+    
+    rateContainer.style.display = "none";
+  } else {
+    btnMxn.classList.add("active");
+    btnMxn.style.background = "var(--primary)";
+    btnMxn.style.color = "#fff";
+    
+    btnUsd.classList.remove("active");
+    btnUsd.style.background = "transparent";
+    btnUsd.style.color = "var(--text-muted)";
+    
+    rateContainer.style.display = "flex";
+  }
+  
+  updatePrices();
+}
+
+function updatePrices() {
+  const rateInput = document.getElementById("ex-rate-input");
+  const rate = parseFloat(rateInput.value) || 18.00;
+  
+  const p1Val = document.getElementById("p1-val");
+  const p1Curr = document.getElementById("p1-curr");
+  const p2Val = document.getElementById("p2-val");
+  const p2Curr = document.getElementById("p2-curr");
+  const p3Val = document.getElementById("p3-val");
+  const p3Curr = document.getElementById("p3-curr");
+  const twilioVal = document.getElementById("twilio-val");
+  
+  if (currentCurrency === "USD") {
+    if (p1Val) p1Val.textContent = "2,500";
+    if (p1Curr) p1Curr.textContent = "USD";
+    if (p2Val) p2Val.textContent = "300";
+    if (p2Curr) p2Curr.textContent = "USD";
+    if (p3Val) p3Val.textContent = "6,500";
+    if (p3Curr) p3Curr.textContent = "USD";
+    if (twilioVal) twilioVal.textContent = "$0.005 USD";
+  } else {
+    const val1 = Math.round(2500 * rate);
+    const val2 = Math.round(300 * rate);
+    const val3 = Math.round(6500 * rate);
+    const twilioRate = (0.005 * rate).toFixed(3);
+    
+    if (p1Val) p1Val.textContent = val1.toLocaleString("en-US");
+    if (p1Curr) p1Curr.textContent = "MXN";
+    if (p2Val) p2Val.textContent = val2.toLocaleString("en-US");
+    if (p2Curr) p2Curr.textContent = "MXN";
+    if (p3Val) p3Val.textContent = val3.toLocaleString("en-US");
+    if (p3Curr) p3Curr.textContent = "MXN";
+    if (twilioVal) twilioVal.textContent = `$${twilioRate} MXN`;
+  }
 }

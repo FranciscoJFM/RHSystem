@@ -1533,7 +1533,7 @@ body {
     background: #fff;
     color: #000;
   }
-  .sidebar, .main-header, .btn, .phone-mockup, .simulator-info-box, .recruiter-container {
+  .sidebar, .main-header, .btn, .phone-mockup, .simulator-info-box, .recruiter-container, .currency-selector, .no-print {
     display: none !important;
   }
   .main-content {
